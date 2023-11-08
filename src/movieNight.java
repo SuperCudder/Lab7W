@@ -9,7 +9,7 @@ public class movieNight {
 	/**
 	 * @author Jove
 	 * 
-	 * Goes through every student in the list of names. For every student it goes through the student's list of movies.
+	 * Chooses the first student from the list of names. It goes through the student's list of movies.
 	 * For every movie in the list it goes through every student in the list of names, checking their set for the current movie.
 	 * If there is a student that doesn't also have the current movie in their set it removes the movie from the main student's set.
 	 * 
@@ -18,19 +18,18 @@ public class movieNight {
 	 * @return True or False. True if there is some movie that is common to every student's list of movies. False otherwise.
 	 */
 	protected static boolean rankMovies(TreeMap<String,TreeSet<String>> inMap, List<String> nameList) {
-		for(String student: nameList) {
-			for(String movie : inMap.get(student)) {
-				Iterator<String> listItr = nameList.iterator();
-				while(listItr.hasNext()) {
-					TreeSet<String> otherMovies = inMap.get(listItr.next());
-					if(	!otherMovies.contains(movie)) {
-						inMap.get(student).remove(movie);
-					}
+		String student = nameList.get(0);
+		for(String movie : inMap.get(student)) {
+			Iterator<String> listItr = nameList.iterator();
+			while(listItr.hasNext()) {
+				TreeSet<String> otherMovies = inMap.get(listItr.next());
+				if(	!otherMovies.contains(movie)) {
+					inMap.get(student).remove(movie);
 				}
 			}
-			if(!inMap.get(student).isEmpty()) {
-				return true;
-			}
+		}
+		if(!inMap.get(student).isEmpty()) {
+			return true;
 		}
 		
 		return false;
