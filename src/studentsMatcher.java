@@ -22,20 +22,25 @@ public class studentsMatcher {
 	public static TreeMap<String, String> findMatches(TreeMap<String, TreeSet<String>> map) {
 		String student = "";
 		String student2 = "";
+
 		TreeMap<String, String> nameMap = new TreeMap<String, String>();
+		// find first student and their favorite movies
 		for (Map.Entry<String, TreeSet<String>> entry : map.entrySet()) {
 			student = entry.getKey();
 			TreeSet<String> movie = entry.getValue();
 			int maxSim = -1;
+			// find next student and their favorite movies
 			for (Map.Entry<String, TreeSet<String>> nextStudent : map.entrySet()) {
 				student2 = nextStudent.getKey();
 				if (!student.equals(student2)) {
 					TreeSet<String> movie2 = nextStudent.getValue();
+					// get similarity between two students treeset
 					int sim = calcSim(movie, movie2);
-
+					// if the sim is bigger than previous, replace with new student
 					if (sim > maxSim) {
 						nameMap.replace(student, student2, student2);
 						maxSim = sim;
+						// if sim is the same just add to map
 					} else if (sim == maxSim) {
 						nameMap.put(student, student2);
 					}
@@ -51,7 +56,7 @@ public class studentsMatcher {
 	 * calcSim uses the intersection and union of student's movie treeSets
 	 * 
 	 * @param student1Movies first students treeset
-	 * @param student2Movies second students treemap
+	 * @param student2Movies second students treeset
 	 * @return similarity value between sets
 	 */
 	private static int calcSim(TreeSet<String> student1Movies, TreeSet<String> student2Movies) {
