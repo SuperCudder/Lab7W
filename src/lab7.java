@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.*;
 /**
  * Lab7 tester class for each team members subtask classes
@@ -10,6 +11,8 @@ public class lab7 {
 
 		TreeMap<String, TreeSet<String>> map = reader.readFileToTreeMap(args[0]);
 		System.out.println(studentsMatcher.findMatches(map).toString());
+        List<String> nameList = new ArrayList<>(map.keySet());
 
+		System.out.println(movieNight.rankMovies(map, nameList));
 	}
 }
